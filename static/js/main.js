@@ -195,7 +195,7 @@ const PRODUCTS_DATA = [
     },
     {
         id: "prod-03",
-        name: "Conjunto Rojo Carmesí Arneses",
+        name: "Conjunto Rojo Carmesí con Arnés",
         category: "edicion-roja",
         categoryLabel: "Edición Roja",
         tags: ["edicion-roja", "bodys-arneses"],
@@ -205,7 +205,7 @@ const PRODUCTS_DATA = [
         sizes: ["S", "M", "L"],
         image: "/static/img/model-3-arnes-rojo.jpg",
         flatlayImage: "/static/img/prod-3-arnes-rojo.jpg",
-        description: "Conjunto de encaje rojo carmesí con arneses de diseño geométrico. Sostén con aros y argollas O-rings metálicas con tiras que cruzan abdomen y cintura, más ligueros a los muslos.",
+        description: "Conjunto de encaje rojo carmesí con arnés de diseño geométrico. Sostén con aros y argollas O-rings metálicas con tiras que cruzan abdomen y cintura, más ligueros a los muslos.",
         material: "Blonda carmesí borgoña, argollas metálicas hipoalergénicas y correas elásticas satinadas."
     },
     {

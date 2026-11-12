@@ -25,7 +25,7 @@ PRODUCTOS = [
     },
     {
         "id": 3,
-        "nombre": "Conjunto Rojo Carmesí Arneses",
+        "nombre": "Conjunto Rojo Carmesí con Arnés",
         "categoria": "rojo",
         "precio": 22.00,
         "tallas": ["S", "M", "L"],
