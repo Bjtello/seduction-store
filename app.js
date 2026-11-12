@@ -284,7 +284,7 @@ class BoutiqueApp {
         });
 
         // Número de WhatsApp de la boutique (Ecuador: +593 o genérico configurable)
-        this.whatsappNumber = "593999999999";
+        this.whatsappNumber = "593985880940";
 
         // Atmósfera sonora
         this.atmosphere = new YouTubeAtmosphere('waU75jdUnYw', 80);
@@ -916,7 +916,8 @@ class BoutiqueApp {
             message += `🎟 *Cupón VIP:* ${this.appliedPromoCode} (-${this.discountPercent}%)\n`;
             message += `✨ *Ahorro:* -$${discountAmount.toFixed(2)} USD\n`;
         }
-        message += `💰 *TOTAL A PAGAR:* $${finalTotal.toFixed(2)} USD\n`;
+        message += `💰 *TOTAL PRENDAS:* $${finalTotal.toFixed(2)} USD\n`;
+        message += `🚚 *Envío:* A coordinar (Gratis en puntos Quito / Tarifa Servientrega según ciudad)\n`;
         message += `🔒 *Garantía:* Empaque neutro y 100% confidencial.\n\n`;
         message += `Hola Séduction, deseo coordinar el pago reservado y la entrega de este pedido.`;
 
