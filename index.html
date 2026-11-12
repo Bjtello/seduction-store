@@ -523,8 +523,8 @@
         </div>
     </div>
 
-    <!-- Dock Flotante de Música Trip-Hop & Dark Lounge -->
-    <div class="music-dock" id="musicDock" aria-label="Reproductor Dark Lounge">
+        <!-- Dock Flotante de Música: The Weeknd - Earned It -->
+    <div class="music-dock" id="musicDock" aria-label="Reproductor The Weeknd - Earned It">
         <div class="music-dock-bars" id="musicDockBars">
             <span class="music-bar"></span>
             <span class="music-bar"></span>
@@ -532,122 +532,18 @@
             <span class="music-bar"></span>
         </div>
         <div class="music-dock-info">
-            <span class="music-dock-tag">SOUNDTRACK 50 SOMBRAS</span>
-            <span class="music-dock-title">Trip-Hop & Dark Lounge</span>
+            <span class="music-dock-tag">THE WEEKND</span>
+            <span class="music-dock-title">Earned It (50 Sombras)</span>
         </div>
         <div class="music-dock-actions">
-            <button class="music-dock-btn" id="musicDockToggle" title="Activar / Pausar Atmósfera">
-                <i data-lucide="volume-2" id="musicDockPlayIcon"></i>
-            </button>
-            <button class="music-dock-btn" id="openPlaylistModalBtn" title="Ver Playlist Oficial">
-                <i data-lucide="disc"></i>
+            <button class="music-dock-btn" id="musicDockToggle" title="Reproducir / Pausar Música de Fondo">
+                <i data-lucide="play" id="musicDockPlayIcon"></i>
             </button>
         </div>
     </div>
 
-    <!-- Modal Playlist Oficial 50 Sombras -->
-    <div class="modal-overlay" id="playlistOverlay"></div>
-    <div class="quick-view-modal glass-modal playlist-modal" id="playlistModal" aria-hidden="true">
-        <button class="modal-close-btn" id="playlistCloseBtn" aria-label="Cerrar">
-            <i data-lucide="x"></i>
-        </button>
-        <div class="playlist-modal-content">
-            <div class="text-center" style="margin-bottom: 2rem;">
-                <span class="section-subtitle">ATMÓSFERA TRIP-HOP & DARK LOUNGE</span>
-                <h2 class="section-title" style="font-size: 2rem; margin-top: 0.5rem;">Soundtrack SÉDUCTION</h2>
-                <p class="playlist-intro">
-                    Inspirada en el sonido insignia de <em>Cincuenta Sombras</em>: pistas lentas, misteriosas y con bajos profundos diseñadas para encender la sensualidad.
-                </p>
-            </div>
-
-            <!-- Lista de Pistas Curadas -->
-            <div class="playlist-tracks-list">
-                <div class="track-row">
-                    <div class="track-index">01</div>
-                    <div class="track-meta">
-                        <div class="track-name">Go Fuck Yourself / I Feel Like I'm Drowning</div>
-                        <div class="track-artist">Two Feet</div>
-                    </div>
-                    <span class="track-pill">Bajo Pesado & Guitarras</span>
-                    <a href="https://open.spotify.com/search/Two%20Feet%20Go%20Fuck%20Yourself" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
-                        <i data-lucide="external-link"></i>
-                    </a>
-                </div>
-
-                <div class="track-row">
-                    <div class="track-index">02</div>
-                    <div class="track-meta">
-                        <div class="track-name">Earned It / Often (Slowed Instrumental)</div>
-                        <div class="track-artist">The Weeknd</div>
-                    </div>
-                    <span class="track-pill">Soundtrack 50 Sombras</span>
-                    <a href="https://open.spotify.com/search/The%20Weeknd%20Earned%20It" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
-                        <i data-lucide="external-link"></i>
-                    </a>
-                </div>
-
-                <div class="track-row">
-                    <div class="track-index">03</div>
-                    <div class="track-meta">
-                        <div class="track-name">Paradise Circus / Teardrop</div>
-                        <div class="track-artist">Massive Attack</div>
-                    </div>
-                    <span class="track-pill">El Clásico de Lencería</span>
-                    <a href="https://open.spotify.com/search/Massive%20Attack%20Paradise%20Circus" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
-                        <i data-lucide="external-link"></i>
-                    </a>
-                </div>
-
-                <div class="track-row">
-                    <div class="track-index">04</div>
-                    <div class="track-meta">
-                        <div class="track-name">Waiting Game / Goddess</div>
-                        <div class="track-artist">BANKS</div>
-                    </div>
-                    <span class="track-pill">Trip-Hop & Suspenso</span>
-                    <a href="https://open.spotify.com/search/BANKS%20Waiting%20Game" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
-                        <i data-lucide="external-link"></i>
-                    </a>
-                </div>
-
-                <div class="track-row">
-                    <div class="track-index">05</div>
-                    <div class="track-meta">
-                        <div class="track-name">Human</div>
-                        <div class="track-artist">Sevdaliza</div>
-                    </div>
-                    <span class="track-pill">Exótica, Profunda & Elegante</span>
-                    <a href="https://open.spotify.com/search/Sevdaliza%20Human" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
-                        <i data-lucide="external-link"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Reproductor Spotify Integrado para Ambientación Inmediata -->
-            <div class="spotify-embed-box">
-                <div class="spotify-box-header">
-                    <i data-lucide="disc" class="rotating-icon"></i>
-                    <span>Playlist Oficial de Fondo (Spotify Player)</span>
-                </div>
-                <iframe style="border-radius:12px; margin-top: 0.8rem;" 
-                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6tT9v2x4Q4p?utm_source=generator&theme=0" 
-                    width="100%" height="80" frameBorder="0" allowfullscreen="" 
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-                </iframe>
-            </div>
-
-            <!-- Control del Generador Trip-Hop Sub-Bass en Vivo -->
-            <div class="synth-lounge-box">
-                <div>
-                    <h4 style="font-size: 0.95rem; color: var(--text-pure-white); margin-bottom: 0.2rem;">Sintetizador Web Sub-Bass en Vivo</h4>
-                    <p style="font-size: 0.78rem; color: var(--text-silver); margin: 0;">Bajos profundos 68 BPM generados en tiempo real directo en tu navegador.</p>
-                </div>
-                <button class="cta-button" id="modalSynthToggleBtn" style="padding: 0.6rem 1.2rem; font-size: 0.82rem;">
-                    <i data-lucide="volume-2"></i> Alternar Audio
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- Reproductor de YouTube Oculto en Segundo Plano -->
+    <div id="youtubeAudioPlayer" style="position: fixed; width: 1px; height: 1px; opacity: 0.01; pointer-events: none; bottom: 0; left: 0; z-index: -999;"></div>
 
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toastContainer"></div>

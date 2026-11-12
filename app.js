@@ -3,151 +3,132 @@
  * Lógica SPA, Catálogo Exclusivo (6 Piezas Originales), Filtros, Banners y Carrito Flotante WhatsApp
  */
 
-// Atmósfera Sonora Trip-Hop & Dark Lounge (Web Audio API - Estilo 50 Sombras / Two Feet / The Weeknd)
-class AmbientAtmosphere {
-    constructor() {
-        this.ctx = null;
+// Atmósfera Sonora: The Weeknd - Earned It (YouTube Background Audio a volumen medio-bajo)
+class YouTubeAtmosphere {
+    constructor(videoId = "waU75jdUnYw", volume = 22) {
+        this.videoId = videoId;
+        this.volume = volume; // Sonido medio bajo (22%)
+        this.player = null;
         this.isPlaying = false;
-        this.oscillators = [];
-        this.gainNode = null;
-        this.stepTimer = null;
-        this.beatCount = 0;
+        this.isReady = false;
+        this.hasStarted = false;
+        this.loadAPI();
+    }
+
+    loadAPI() {
+        if (!window.YT) {
+            const tag = document.createElement("script");
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScript = document.getElementsByTagName("script")[0];
+            if (firstScript && firstScript.parentNode) {
+                firstScript.parentNode.insertBefore(tag, firstScript);
+            } else {
+                document.head.appendChild(tag);
+            }
+        }
+
+        const initPlayer = () => {
+            if (this.player) return;
+            const container = document.getElementById("youtubeAudioPlayer");
+            if (!container) return;
+
+            try {
+                this.player = new YT.Player("youtubeAudioPlayer", {
+                    height: "1",
+                    width: "1",
+                    videoId: this.videoId,
+                    playerVars: {
+                        autoplay: 0,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        loop: 1,
+                        playlist: this.videoId,
+                        modestbranding: 1,
+                        rel: 0,
+                        playsinline: 1
+                    },
+                    events: {
+                        onReady: (e) => {
+                            this.isReady = true;
+                            try {
+                                e.target.setVolume(this.volume);
+                            } catch (err) { }
+                        },
+                        onStateChange: (e) => {
+                            if (e.data === YT.PlayerState.PLAYING) {
+                                this.isPlaying = true;
+                                if (window.storeApp) window.storeApp.syncAudioUI(true);
+                            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                                this.isPlaying = false;
+                                if (window.storeApp) window.storeApp.syncAudioUI(false);
+                            }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn("Error inicializando YouTube Player", err);
+            }
+        };
+
+        if (window.YT && window.YT.Player) {
+            initPlayer();
+        } else {
+            const prevCallback = window.onYouTubeIframeAPIReady;
+            window.onYouTubeIframeAPIReady = () => {
+                if (typeof prevCallback === "function") prevCallback();
+                initPlayer();
+            };
+        }
+
+        // Inicio suave al primer gesto del usuario (cumple directivas de reproducción de audio)
+        const startOnGesture = () => {
+            if (this.isReady && !this.isPlaying && !this.hasStarted) {
+                this.play();
+                this.hasStarted = true;
+            }
+            document.removeEventListener("click", startOnGesture);
+            document.removeEventListener("touchstart", startOnGesture);
+        };
+        document.addEventListener("click", startOnGesture, { once: true });
+        document.addEventListener("touchstart", startOnGesture, { once: true });
+    }
+
+    play() {
+        if (this.player && this.isReady) {
+            try {
+                this.player.setVolume(this.volume);
+                this.player.playVideo();
+                this.isPlaying = true;
+                this.hasStarted = true;
+            } catch (err) {
+                console.warn("YouTube play error", err);
+            }
+        }
+    }
+
+    pause() {
+        if (this.player && this.isReady) {
+            try {
+                this.player.pauseVideo();
+                this.isPlaying = false;
+            } catch (err) {
+                console.warn("YouTube pause error", err);
+            }
+        }
     }
 
     toggle() {
-        if (!this.isPlaying) {
-            this.start();
+        if (!this.player || !this.isReady) {
+            this.play();
             return true;
-        } else {
-            this.stop();
+        }
+        if (this.isPlaying) {
+            this.pause();
             return false;
-        }
-    }
-
-    start() {
-        try {
-            if (!this.ctx) {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                this.ctx = new AudioCtx();
-            }
-            if (this.ctx.state === 'suspended') {
-                this.ctx.resume();
-            }
-
-            // Ganancia Master con fade in suave
-            this.gainNode = this.ctx.createGain();
-            this.gainNode.gain.setValueAtTime(0.005, this.ctx.currentTime);
-            this.gainNode.gain.exponentialRampToValueAtTime(0.08, this.ctx.currentTime + 2.5);
-
-            // Filtro Lowpass de terciopelo (Corte a 360 Hz)
-            const masterFilter = this.ctx.createBiquadFilter();
-            masterFilter.type = 'lowpass';
-            masterFilter.frequency.value = 360;
-
-            this.gainNode.connect(masterFilter);
-            masterFilter.connect(this.ctx.destination);
-
-            // Acordes menores sensuales Dm9 / A (D2, A2, F3, C4, E4)
-            const chordFrequencies = [73.42, 110.00, 174.61, 261.63, 329.63];
-            this.oscillators = chordFrequencies.map((freq, idx) => {
-                const osc = this.ctx.createOscillator();
-                osc.type = idx === 0 ? 'sine' : (idx % 2 === 0 ? 'triangle' : 'sine');
-                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-
-                const chordGain = this.ctx.createGain();
-                chordGain.gain.value = idx === 0 ? 0.35 : 0.15;
-
-                osc.connect(chordGain);
-                chordGain.connect(this.gainNode);
-                osc.start();
-                return osc;
-            });
-
-            // Secuenciador de Ritmo Trip-Hop (68 BPM = 882ms por compás)
-            this.beatCount = 0;
-            this.stepTimer = setInterval(() => {
-                this.triggerTripHopBeat();
-            }, 882);
-
-            this.isPlaying = true;
-        } catch (e) {
-            console.warn("Audio no soportado o bloqueado por el navegador", e);
-            this.isPlaying = false;
-        }
-    }
-
-    triggerTripHopBeat() {
-        if (!this.ctx || !this.isPlaying) return;
-        this.beatCount = (this.beatCount + 1) % 4;
-        const now = this.ctx.currentTime;
-
-        // Golpe 1 & 3: Sub-Bass 808 Profundo (Estilo Two Feet / The Weeknd)
-        if (this.beatCount === 1 || this.beatCount === 3) {
-            const subOsc = this.ctx.createOscillator();
-            const subGain = this.ctx.createGain();
-
-            subOsc.type = 'sine';
-            const startFreq = this.beatCount === 1 ? 95 : 75;
-            const endFreq = 42;
-
-            subOsc.frequency.setValueAtTime(startFreq, now);
-            subOsc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.4);
-
-            subGain.gain.setValueAtTime(0.22, now);
-            subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
-
-            subOsc.connect(subGain);
-            subGain.connect(this.ctx.destination);
-
-            subOsc.start(now);
-            subOsc.stop(now + 0.7);
-        }
-
-        // Golpe 2 & 4: Chasquido / Rimshot sutil con reverb
-        if (this.beatCount === 2 || this.beatCount === 0) {
-            const bufferSize = Math.floor(this.ctx.sampleRate * 0.08);
-            const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.02));
-            }
-
-            const noise = this.ctx.createBufferSource();
-            noise.buffer = buffer;
-
-            const noiseFilter = this.ctx.createBiquadFilter();
-            noiseFilter.type = 'bandpass';
-            noiseFilter.frequency.value = 1400;
-
-            const noiseGain = this.ctx.createGain();
-            noiseGain.gain.setValueAtTime(0.045, now);
-            noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-
-            noise.connect(noiseFilter);
-            noiseFilter.connect(noiseGain);
-            noiseGain.connect(this.ctx.destination);
-
-            noise.start(now);
-        }
-    }
-
-    stop() {
-        if (this.stepTimer) {
-            clearInterval(this.stepTimer);
-            this.stepTimer = null;
-        }
-
-        if (this.gainNode && this.ctx) {
-            this.gainNode.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 1.2);
-            setTimeout(() => {
-                this.oscillators.forEach(osc => {
-                    try { osc.stop(); osc.disconnect(); } catch (e) { }
-                });
-                this.oscillators = [];
-                this.isPlaying = false;
-            }, 1300);
         } else {
-            this.isPlaying = false;
+            this.play();
+            return true;
         }
     }
 }
@@ -296,7 +277,7 @@ class BoutiqueApp {
         this.whatsappNumber = "593999999999";
 
         // Atmósfera sonora
-        this.atmosphere = new AmbientAtmosphere();
+        this.atmosphere = new YouTubeAtmosphere('waU75jdUnYw', 22);
 
         this.initDOMElements();
         this.bindEvents();
@@ -380,9 +361,7 @@ class BoutiqueApp {
         }
 
         // Modal Playlist 50 Sombras
-        if (this.openPlaylistModalBtn) {
-            this.openPlaylistModalBtn.addEventListener("click", () => this.openPlaylistModal());
-        }
+        // Playlist modal removido para The Weeknd Earned It
         if (this.playlistCloseBtn) {
             this.playlistCloseBtn.addEventListener("click", () => this.closePlaylistModal());
         }
@@ -613,9 +592,9 @@ class BoutiqueApp {
         const active = this.atmosphere.toggle();
         this.syncAudioUI(active);
         if (active) {
-            this.showToast("Atmósfera Trip-Hop & Dark Lounge activada (68 BPM)");
+            this.showToast("The Weeknd — Earned It (Sonido ambiente activado)");
         } else {
-            this.showToast("Atmósfera sonora en pausa");
+            this.showToast("Música de fondo en pausa");
         }
     }
 
