@@ -519,7 +519,7 @@
         </div>
     </div>
 
-                <!-- Reproductor Superior de Música: The Weeknd - Earned It -->
+                    <!-- Reproductor Superior de Música: The Weeknd - Earned It -->
     <div class="music-widget glass-panel" id="musicDock" style="position: fixed; top: 90px; left: 16px; bottom: auto; z-index: 9990; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 50px;">
         <div class="eq-bars music-dock-bars" id="eqBars">
             <span class="music-bar"></span><span class="music-bar"></span><span class="music-bar"></span><span class="music-bar"></span>
@@ -528,16 +528,18 @@
             <span style="font-size: 8px; letter-spacing: 1px; color: #ef4444; display: block; font-weight: 600;">THE WEEKND</span>
             <span style="font-size: 11px; color: #fff; font-weight: 500;">Earned It</span>
         </div>
+        <!-- Botón Play / Pausa -->
         <button id="playPauseBtn" title="Play / Pausa" style="background: rgba(185, 28, 28, 0.35); border: 1px solid rgba(239, 68, 68, 0.5); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
             <i id="playPauseIcon" data-lucide="play" style="width: 12px; height: 12px;"></i>
         </button>
-        </div>
+        <!-- Botón Silenciar / Volumen -->
+        <button id="muteToggleBtn" title="Silenciar / Activar sonido" style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+            <i id="muteIcon" data-lucide="volume-2" style="width: 12px; height: 12px;"></i>
+        </button>
+    </div>
 
-    <!-- Etiqueta Audio HTML5 de respaldo -->
-    <audio id="bgMusic" src="{{ url_for('static', filename='audio/ambient.mp3') }}" loop preload="auto"></audio>
-
-    <!-- Reproductor de YouTube Oculto en Segundo Plano -->
-    <div id="youtubeAudioPlayer" style="position: fixed; width: 1px; height: 1px; opacity: 0.01; pointer-events: none; bottom: 0; left: 0; z-index: -999;"></div>
+    <!-- Etiqueta Audio HTML5 exclusiva -->
+    <audio id="bgMusic" src="{{ url_for('static', filename='audio/earned-it.mp3') }}" loop preload="auto"></audio>
 
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toastContainer"></div>

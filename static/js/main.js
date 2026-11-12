@@ -3,146 +3,6 @@
  * Lógica SPA, Catálogo Exclusivo (6 Piezas Originales), Filtros, Banners y Carrito Flotante WhatsApp
  */
 
-// Atmósfera Sonora: The Weeknd - Earned It (YouTube Background Audio a volumen medio-bajo)
-// Atmósfera Sonora: The Weeknd - Earned It
-class YouTubeAtmosphere {
-    constructor(videoId = "waU75jdUnYw", volume = 80) {
-        this.videoId = videoId;
-        this.volume = volume; // Volumen claro al 80%
-        this.player = null;
-        this.isReady = false;
-        this.isPlaying = false;
-        this.hasStarted = false;
-        this.loadAPI();
-    }
-
-    loadAPI() {
-        if (!window.YT) {
-            const tag = document.createElement("script");
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScript = document.getElementsByTagName("script")[0];
-            if (firstScript && firstScript.parentNode) {
-                firstScript.parentNode.insertBefore(tag, firstScript);
-            } else {
-                document.head.appendChild(tag);
-            }
-        }
-
-        const initPlayer = () => {
-            if (this.player) return;
-            const container = document.getElementById("youtubeAudioPlayer");
-            if (!container) return;
-
-            try {
-                this.player = new YT.Player("youtubeAudioPlayer", {
-                    height: "1",
-                    width: "1",
-                    videoId: this.videoId,
-                    playerVars: {
-                        autoplay: 0,
-                        controls: 0,
-                        disablekb: 1,
-                        fs: 0,
-                        loop: 1,
-                        playlist: this.videoId,
-                        modestbranding: 1,
-                        rel: 0,
-                        playsinline: 1
-                    },
-                    events: {
-                        onReady: (e) => {
-                            this.isReady = true;
-                            try {
-                                e.target.setVolume(this.volume);
-                            } catch (err) { }
-                        },
-                        onStateChange: (e) => {
-                            // 1 = PLAYING, 2 = PAUSED, 0 = ENDED
-                            if (e.data === YT.PlayerState.PLAYING) {
-                                this.isPlaying = true;
-                                window.updateMusicVisuals(true);
-                            } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
-                                this.isPlaying = false;
-                                window.updateMusicVisuals(false);
-                            }
-                        }
-                    }
-                });
-            } catch (err) {
-                console.warn("Error inicializando YouTube Player", err);
-            }
-        };
-
-        if (window.YT && window.YT.Player) {
-            initPlayer();
-        } else {
-            const prevCallback = window.onYouTubeIframeAPIReady;
-            window.onYouTubeIframeAPIReady = () => {
-                if (typeof prevCallback === "function") prevCallback();
-                initPlayer();
-            };
-        }
-
-        // Inicio suave al primer clic en cualquier parte de la tienda (excepto el propio reproductor)
-        const startOnFirstInteraction = (e) => {
-            if (e.target && e.target.closest && (e.target.closest('#musicDock') || e.target.closest('#playPauseBtn'))) {
-                return;
-            }
-            if (this.isReady && !this.isPlaying && !this.hasStarted) {
-                this.hasStarted = true;
-                this.play();
-            }
-            document.removeEventListener("click", startOnFirstInteraction);
-            document.removeEventListener("touchstart", startOnFirstInteraction);
-        };
-        document.addEventListener("click", startOnFirstInteraction, { once: true });
-        document.addEventListener("touchstart", startOnFirstInteraction, { once: true });
-    }
-
-    play() {
-        if (this.player && typeof this.player.playVideo === "function") {
-            try {
-                this.player.setVolume(this.volume);
-                this.player.playVideo();
-                this.isPlaying = true;
-                this.hasStarted = true;
-                window.updateMusicVisuals(true);
-            } catch (err) {
-                console.warn("YouTube play error", err);
-            }
-        }
-    }
-
-    pause() {
-        if (this.player && typeof this.player.pauseVideo === "function") {
-            try {
-                this.player.pauseVideo();
-                this.isPlaying = false;
-                window.updateMusicVisuals(false);
-            } catch (err) {
-                console.warn("YouTube pause error", err);
-            }
-        }
-    }
-
-    toggle() {
-        if (!this.player || typeof this.player.getPlayerState !== "function") {
-            this.play();
-            return true;
-        }
-
-        const state = this.player.getPlayerState();
-        // 1 = PLAYING, 3 = BUFFERING
-        if (state === 1 || state === 3 || this.isPlaying) {
-            this.pause();
-            return false;
-        } else {
-            this.play();
-            return true;
-        }
-    }
-}
-
 // Banners de Categoría de Lujo
 const CATEGORY_BANNERS = {
     "negro-sensual": {
@@ -286,9 +146,6 @@ class BoutiqueApp {
         // Número de WhatsApp de la boutique (Ecuador: +593 o genérico configurable)
         this.whatsappNumber = "593985880940";
 
-        // Atmósfera sonora
-        this.atmosphere = new YouTubeAtmosphere('waU75jdUnYw', 80);
-
         this.initDOMElements();
         this.bindEvents();
         this.renderCategoryBanner();
@@ -362,13 +219,9 @@ class BoutiqueApp {
             this.audioToggleBtn.addEventListener("click", () => this.toggleAtmosphere());
         }
 
-        if (this.musicDockToggle) {
-            this.musicDockToggle.addEventListener("click", () => this.toggleAtmosphere());
-        }
+        
 
-        if (this.modalSynthToggleBtn) {
-            this.modalSynthToggleBtn.addEventListener("click", () => this.toggleAtmosphere());
-        }
+        
 
         // Modal Playlist 50 Sombras
         // Playlist modal removido para The Weeknd Earned It
@@ -597,42 +450,24 @@ class BoutiqueApp {
         this.sizeGuideOverlay.classList.remove("active");
     }
 
-    // Control Unificado de Audio Trip-Hop & Dark Lounge
+        // Control de Audio HTML5
     toggleAtmosphere() {
-        const active = this.atmosphere.toggle();
-        this.syncAudioUI(active);
-        if (active) {
-            this.showToast("The Weeknd — Earned It (Sonido ambiente activado)");
-        } else {
-            this.showToast("Música de fondo en pausa");
+        const audio = document.getElementById("bgMusic") || document.querySelector("audio");
+        if (audio) {
+            if (audio.paused) {
+                audio.play();
+                this.showToast("The Weeknd — Earned It (Sonido ambiente activado)");
+            } else {
+                audio.pause();
+                this.showToast("Música de fondo en pausa");
+            }
         }
     }
 
     syncAudioUI(isPlaying) {
-        if (this.musicDock) {
-            if (isPlaying) {
-                this.musicDock.classList.add("playing");
-            } else {
-                this.musicDock.classList.remove("playing");
-            }
+        if (window.actualizarPlayVisual) {
+            window.actualizarPlayVisual(isPlaying);
         }
-
-        if (this.audioToggleBtn) {
-            this.audioToggleBtn.innerHTML = isPlaying ? '<i data-lucide="volume-2"></i>' : '<i data-lucide="volume-x"></i>';
-            this.audioToggleBtn.style.color = isPlaying ? "var(--crimson-light)" : "";
-        }
-
-        if (this.musicDockToggle) {
-            this.musicDockToggle.innerHTML = isPlaying ? '<i data-lucide="volume-2"></i>' : '<i data-lucide="play"></i>';
-        }
-
-        if (this.modalSynthToggleBtn) {
-            this.modalSynthToggleBtn.innerHTML = isPlaying 
-                ? '<i data-lucide="pause"></i> Pausar Generador Sub-Bass' 
-                : '<i data-lucide="volume-2"></i> Activar Generador Sub-Bass';
-        }
-
-        if (window.lucide) lucide.createIcons();
     }
 
     // Modal Playlist 50 Sombras
@@ -989,27 +824,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==========================================
-// Control Definitivo: Play / Pausa Único
+// Control Exclusivo de Audio HTML5 Nativo
+// The Weeknd - Earned It
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    const audio = document.querySelector('audio');
+    const audio = document.getElementById('bgMusic') || document.querySelector('audio');
     const playBtn = document.getElementById('playPauseBtn');
     const playIcon = document.getElementById('playPauseIcon');
+    const muteBtn = document.getElementById('muteToggleBtn');
+    const muteIcon = document.getElementById('muteIcon');
     const eqBars = document.getElementById('eqBars');
     const dock = document.getElementById('musicDock');
 
-    if (!playBtn) return;
+    if (!audio) return;
 
-    if (audio) {
-        audio.volume = 0.8;
-        audio.muted = false;
-    }
+    // Configuración nativa del reproductor HTML5
+    audio.volume = 0.8;
+    audio.muted = false;
 
-    // Función central para actualizar el ícono y la animación de las barras
-    function actualizarEstadoVisual(reproduciendo) {
+    // Sincronización visual Play / Pausa
+    function actualizarPlayVisual(reproduciendo) {
         if (playIcon) {
             playIcon.setAttribute('data-lucide', reproduciendo ? 'pause' : 'play');
-            if (window.lucide) lucide.createIcons();
         }
         if (eqBars) {
             eqBars.style.opacity = reproduciendo ? '1' : '0.4';
@@ -1017,58 +853,74 @@ document.addEventListener('DOMContentLoaded', () => {
         if (dock) {
             dock.classList.toggle('playing', reproduciendo);
         }
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
     }
 
-    // Control exclusivo al hacer clic en el botón Play/Pausa
-    playBtn.onclick = function (e) {
-        e.stopPropagation(); // Evita que el clic se propague al documento y reactive el audio
-        
-        if (audio && audio.src && !audio.src.endsWith('/')) {
+    // Sincronización visual Silencio / Mute
+    function actualizarMuteVisual(estaSilenciado) {
+        if (muteIcon) {
+            muteIcon.setAttribute('data-lucide', estaSilenciado ? 'volume-x' : 'volume-2');
+        }
+        if (muteBtn) {
+            muteBtn.style.opacity = estaSilenciado ? '0.6' : '1';
+        }
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+
+    // Control exclusivo del botón Play / Pausa
+    if (playBtn) {
+        playBtn.onclick = function (e) {
+            e.stopPropagation();
             if (audio.paused) {
                 audio.play().then(() => {
-                    actualizarEstadoVisual(true);
-                }).catch(() => {
-                    // Fallback a YouTube si ambient.mp3 no existe
-                    if (window.storeApp && window.storeApp.atmosphere) {
-                        const ytPlaying = window.storeApp.atmosphere.toggle();
-                        actualizarEstadoVisual(ytPlaying);
-                    }
+                    actualizarPlayVisual(true);
+                }).catch(err => {
+                    console.warn("Reproducción pausada por navegador:", err);
                 });
             } else {
                 audio.pause();
-                actualizarEstadoVisual(false);
-                if (window.storeApp && window.storeApp.atmosphere) {
-                    window.storeApp.atmosphere.pause();
-                }
+                actualizarPlayVisual(false);
             }
-        } else if (window.storeApp && window.storeApp.atmosphere) {
-            const ytPlaying = window.storeApp.atmosphere.toggle();
-            actualizarEstadoVisual(ytPlaying);
-        }
-    };
+        };
+    }
 
-    // Arrancar música al primer toque en cualquier parte (solo una vez)
+    // Control exclusivo del botón de Silencio
+    if (muteBtn) {
+        muteBtn.onclick = function (e) {
+            e.stopPropagation();
+            audio.muted = !audio.muted;
+            actualizarMuteVisual(audio.muted);
+        };
+    }
+
+    // Escuchar eventos nativos de la etiqueta <audio>
+    audio.addEventListener('play', () => actualizarPlayVisual(true));
+    audio.addEventListener('pause', () => actualizarPlayVisual(false));
+    audio.addEventListener('volumechange', () => actualizarMuteVisual(audio.muted));
+
+    // Desbloqueo de audio en la primera interacción del usuario con la tienda
     function primerToque(e) {
-        if (playBtn.contains(e.target) || (dock && dock.contains(e.target))) return;
+        if (e.target && e.target.closest && (e.target.closest('#musicDock') || e.target.closest('#playPauseBtn') || e.target.closest('#muteToggleBtn'))) {
+            return;
+        }
 
-        if (audio && audio.src && !audio.src.endsWith('/') && audio.paused) {
+        if (audio.paused) {
             audio.play().then(() => {
-                actualizarEstadoVisual(true);
+                actualizarPlayVisual(true);
             }).catch(() => {
-                if (window.storeApp && window.storeApp.atmosphere) {
-                    window.storeApp.atmosphere.play();
-                    actualizarEstadoVisual(true);
-                }
+                // Autoplay bloqueado por políticas del navegador hasta clic manual
             });
-        } else if (window.storeApp && window.storeApp.atmosphere) {
-            window.storeApp.atmosphere.play();
-            actualizarEstadoVisual(true);
         }
     }
 
     document.addEventListener('click', primerToque, { once: true });
     document.addEventListener('touchstart', primerToque, { once: true });
 
-    window.actualizarEstadoVisual = actualizarEstadoVisual;
-    window.updateMusicVisuals = actualizarEstadoVisual;
+    window.actualizarPlayVisual = actualizarPlayVisual;
+    window.actualizarMuteVisual = actualizarMuteVisual;
+    window.updateMusicVisuals = actualizarPlayVisual;
 });
