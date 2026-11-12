@@ -6,9 +6,9 @@
 // Atmósfera Sonora: The Weeknd - Earned It (YouTube Background Audio a volumen medio-bajo)
 // Atmósfera Sonora: The Weeknd - Earned It
 class YouTubeAtmosphere {
-    constructor(videoId = "waU75jdUnYw", volume = 22) {
+    constructor(videoId = "waU75jdUnYw", volume = 80) {
         this.videoId = videoId;
-        this.volume = volume; // Sonido medio bajo (22%)
+        this.volume = volume; // Volumen claro al 80%
         this.player = null;
         this.isReady = false;
         this.isPlaying = false;
@@ -287,7 +287,7 @@ class BoutiqueApp {
         this.whatsappNumber = "593999999999";
 
         // Atmósfera sonora
-        this.atmosphere = new YouTubeAtmosphere('waU75jdUnYw', 22);
+        this.atmosphere = new YouTubeAtmosphere('waU75jdUnYw', 80);
 
         this.initDOMElements();
         this.bindEvents();
@@ -991,20 +991,41 @@ document.addEventListener("DOMContentLoaded", () => {
 // Control de Música: Play / Pausa Único
 // ==========================================
 function togglePlayMusic() {
-    if (window.storeApp && window.storeApp.atmosphere) {
-        window.storeApp.atmosphere.toggle();
+    const audio = document.querySelector('audio');
+    const icon = document.getElementById('playPauseIcon');
+
+    // 1. Si está activo el reproductor YouTube de fondo
+    if (window.storeApp && window.storeApp.atmosphere && window.storeApp.atmosphere.player) {
+        window.storeApp.atmosphere.volume = 80; // Volumen claro al 80%
+        try { window.storeApp.atmosphere.player.setVolume(80); } catch (e) { }
+        const isPlaying = window.storeApp.atmosphere.toggle();
+        updateMusicVisuals(isPlaying);
         return;
     }
-    const audioPlayer = document.getElementById("bgMusic");
-    if (audioPlayer && audioPlayer.src) {
-        if (audioPlayer.paused) {
-            audioPlayer.volume = 0.25;
-            audioPlayer.play().catch(e => console.warn(e));
+
+    // 2. Control sobre etiqueta <audio> HTML5
+    if (!audio) {
+        console.error("No se encontró ninguna etiqueta <audio> en el HTML");
+        return;
+    }
+
+    audio.muted = false; // Asegura que no esté silenciado
+    audio.volume = 0.8;  // Volumen claro al 80%
+
+    if (audio.paused) {
+        audio.play().then(() => {
             updateMusicVisuals(true);
-        } else {
-            audioPlayer.pause();
-            updateMusicVisuals(false);
-        }
+        }).catch(err => {
+            console.warn("Audio HTML5 falló o sin fuente local:", err);
+            if (window.storeApp && window.storeApp.atmosphere) {
+                window.storeApp.atmosphere.volume = 80;
+                window.storeApp.atmosphere.play();
+                updateMusicVisuals(true);
+            }
+        });
+    } else {
+        audio.pause();
+        updateMusicVisuals(false);
     }
 }
 
