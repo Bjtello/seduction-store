@@ -58,10 +58,10 @@ class YouTubeAtmosphere {
                         onStateChange: (e) => {
                             if (e.data === YT.PlayerState.PLAYING) {
                                 this.isPlaying = true;
-                                if (window.storeApp) window.storeApp.syncAudioUI(true);
+                                if (window.storeApp) window.updateMusicVisuals(true);
                             } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
                                 this.isPlaying = false;
-                                if (window.storeApp) window.storeApp.syncAudioUI(false);
+                                if (window.storeApp) window.updateMusicVisuals(false);
                             }
                         }
                     }
@@ -974,3 +974,90 @@ let app;
 document.addEventListener("DOMContentLoaded", () => {
     app = new BoutiqueApp();
 });
+
+
+// ==========================================
+// Control de Música: Play/Pausa & Mute/Volumen
+// ==========================================
+let isMusicMuted = false;
+
+function togglePlayMusic() {
+    if (window.storeApp && window.storeApp.atmosphere) {
+        const isNowPlaying = window.storeApp.atmosphere.toggle();
+        updateMusicVisuals(isNowPlaying);
+        return;
+    }
+    const audioPlayer = document.getElementById("bgMusic");
+    if (audioPlayer && audioPlayer.src) {
+        if (audioPlayer.paused) {
+            audioPlayer.volume = 0.25;
+            audioPlayer.play().catch(e => console.warn(e));
+            updateMusicVisuals(true);
+        } else {
+            audioPlayer.pause();
+            updateMusicVisuals(false);
+        }
+    }
+}
+
+function toggleMuteMusic() {
+    const volIcon = document.getElementById("volumeIcon");
+    const audioPlayer = document.getElementById("bgMusic");
+    isMusicMuted = !isMusicMuted;
+
+    if (window.storeApp && window.storeApp.atmosphere && window.storeApp.atmosphere.player) {
+        try {
+            if (isMusicMuted) {
+                window.storeApp.atmosphere.player.mute();
+            } else {
+                window.storeApp.atmosphere.player.unMute();
+                window.storeApp.atmosphere.player.setVolume(22);
+            }
+        } catch (e) { }
+    }
+
+    if (audioPlayer) {
+        audioPlayer.muted = isMusicMuted;
+    }
+
+    if (volIcon) {
+        volIcon.setAttribute("data-lucide", isMusicMuted ? "volume-x" : "volume-2");
+    }
+
+    const headerAudioBtn = document.getElementById("audioToggleBtn");
+    if (headerAudioBtn) {
+        headerAudioBtn.innerHTML = isMusicMuted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
+        headerAudioBtn.style.color = isMusicMuted ? "" : "var(--crimson-light)";
+    }
+
+    if (window.lucide) lucide.createIcons();
+}
+
+function updateMusicVisuals(isPlaying) {
+    const playIcon = document.getElementById("playPauseIcon");
+    const dock = document.getElementById("musicDock");
+    const headerAudioBtn = document.getElementById("audioToggleBtn");
+
+    if (dock) {
+        if (isPlaying) {
+            dock.classList.add("playing");
+        } else {
+            dock.classList.remove("playing");
+        }
+    }
+
+    if (playIcon) {
+        playIcon.setAttribute("data-lucide", isPlaying ? "pause" : "play");
+    }
+
+    if (headerAudioBtn) {
+        headerAudioBtn.innerHTML = isPlaying ? '<i data-lucide="volume-2"></i>' : '<i data-lucide="volume-x"></i>';
+        headerAudioBtn.style.color = isPlaying ? "var(--crimson-light)" : "";
+    }
+
+    if (window.lucide) lucide.createIcons();
+}
+
+window.togglePlayMusic = togglePlayMusic;
+window.toggleMuteMusic = toggleMuteMusic;
+window.updateMusicVisuals = updateMusicVisuals;

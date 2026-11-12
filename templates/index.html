@@ -517,24 +517,35 @@
         </div>
     </div>
 
-        <!-- Dock Flotante de Música: The Weeknd - Earned It -->
-    <div class="music-dock" id="musicDock" aria-label="Reproductor The Weeknd - Earned It">
-        <div class="music-dock-bars" id="musicDockBars">
+            <!-- Dock Flotante de Música: The Weeknd - Earned It -->
+    <div class="music-dock music-widget glass-panel" id="musicDock" aria-label="Reproductor The Weeknd - Earned It" style="display: flex; align-items: center; gap: 10px;">
+        <!-- Barras ecualizadoras -->
+        <div class="music-dock-bars eq-bars" id="eqBars">
             <span class="music-bar"></span>
             <span class="music-bar"></span>
             <span class="music-bar"></span>
             <span class="music-bar"></span>
         </div>
-        <div class="music-dock-info">
-            <span class="music-dock-tag">THE WEEKND</span>
-            <span class="music-dock-title">Earned It (50 Sombras)</span>
+
+        <!-- Info de la pista -->
+        <div class="music-dock-info track-info">
+            <span class="music-dock-tag track-artist" style="font-size: 9px; letter-spacing: 1.5px; color: #ef4444; display: block;">THE WEEKND</span>
+            <span class="music-dock-title track-title" style="font-size: 12px; color: #fff;">Earned It (50 Sombras)</span>
         </div>
-        <div class="music-dock-actions">
-            <button class="music-dock-btn" id="musicDockToggle" title="Reproducir / Pausar Música de Fondo">
-                <i data-lucide="play" id="musicDockPlayIcon"></i>
-            </button>
-        </div>
+
+        <!-- Botón Play / Pausa -->
+        <button id="playPauseBtn" onclick="togglePlayMusic()" title="Play / Pausa" style="background: rgba(185, 28, 28, 0.25); border: 1px solid rgba(239, 68, 68, 0.5); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+            <i id="playPauseIcon" data-lucide="play" style="width: 14px; height: 14px;"></i>
+        </button>
+
+        <!-- Botón Silenciar / Volumen -->
+        <button id="muteToggleBtn" onclick="toggleMuteMusic()" title="Silenciar / Activar sonido" style="background: transparent; border: none; color: #fca5a5; cursor: pointer; display: flex; align-items: center; padding: 4px; transition: all 0.3s ease;">
+            <i id="volumeIcon" data-lucide="volume-2" style="width: 16px; height: 16px;"></i>
+        </button>
     </div>
+
+    <!-- Etiqueta Audio HTML5 de respaldo -->
+    <audio id="bgMusic" preload="auto" loop></audio>
 
     <!-- Reproductor de YouTube Oculto en Segundo Plano -->
     <div id="youtubeAudioPlayer" style="position: fixed; width: 1px; height: 1px; opacity: 0.01; pointer-events: none; bottom: 0; left: 0; z-index: -999;"></div>
