@@ -989,65 +989,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==========================================
-// Control de Música: Play / Pausa Único
+// Control Definitivo: Play / Pausa Único
 // ==========================================
-function togglePlayMusic() {
+document.addEventListener('DOMContentLoaded', () => {
     const audio = document.querySelector('audio');
-    const icon = document.getElementById('playPauseIcon');
+    const playBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playPauseIcon');
+    const eqBars = document.getElementById('eqBars');
+    const dock = document.getElementById('musicDock');
 
-    // 1. Si está activo el reproductor YouTube de fondo
-    if (window.storeApp && window.storeApp.atmosphere && window.storeApp.atmosphere.player) {
-        window.storeApp.atmosphere.volume = 80; // Volumen claro al 80%
-        try { window.storeApp.atmosphere.player.setVolume(80); } catch (e) { }
-        const isPlaying = window.storeApp.atmosphere.toggle();
-        updateMusicVisuals(isPlaying);
-        return;
+    if (!playBtn) return;
+
+    if (audio) {
+        audio.volume = 0.8;
+        audio.muted = false;
     }
 
-    // 2. Control sobre etiqueta <audio> HTML5
-    if (!audio) {
-        console.error("No se encontró ninguna etiqueta <audio> en el HTML");
-        return;
-    }
-
-    audio.muted = false; // Asegura que no esté silenciado
-    audio.volume = 0.8;  // Volumen claro al 80%
-
-    if (audio.paused) {
-        audio.play().then(() => {
-            updateMusicVisuals(true);
-        }).catch(err => {
-            console.warn("Audio HTML5 falló o sin fuente local:", err);
-            if (window.storeApp && window.storeApp.atmosphere) {
-                window.storeApp.atmosphere.volume = 80;
-                window.storeApp.atmosphere.play();
-                updateMusicVisuals(true);
-            }
-        });
-    } else {
-        audio.pause();
-        updateMusicVisuals(false);
-    }
-}
-
-function updateMusicVisuals(isPlaying) {
-    const playIcon = document.getElementById("playPauseIcon");
-    const dock = document.getElementById("musicDock");
-
-    if (dock) {
-        if (isPlaying) {
-            dock.classList.add("playing");
-        } else {
-            dock.classList.remove("playing");
+    // Función central para actualizar el ícono y la animación de las barras
+    function actualizarEstadoVisual(reproduciendo) {
+        if (playIcon) {
+            playIcon.setAttribute('data-lucide', reproduciendo ? 'pause' : 'play');
+            if (window.lucide) lucide.createIcons();
+        }
+        if (eqBars) {
+            eqBars.style.opacity = reproduciendo ? '1' : '0.4';
+        }
+        if (dock) {
+            dock.classList.toggle('playing', reproduciendo);
         }
     }
 
-    if (playIcon) {
-        playIcon.setAttribute("data-lucide", isPlaying ? "pause" : "play");
+    // Control exclusivo al hacer clic en el botón Play/Pausa
+    playBtn.onclick = function (e) {
+        e.stopPropagation(); // Evita que el clic se propague al documento y reactive el audio
+        
+        if (audio && audio.src && !audio.src.endsWith('/')) {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    actualizarEstadoVisual(true);
+                }).catch(() => {
+                    // Fallback a YouTube si ambient.mp3 no existe
+                    if (window.storeApp && window.storeApp.atmosphere) {
+                        const ytPlaying = window.storeApp.atmosphere.toggle();
+                        actualizarEstadoVisual(ytPlaying);
+                    }
+                });
+            } else {
+                audio.pause();
+                actualizarEstadoVisual(false);
+                if (window.storeApp && window.storeApp.atmosphere) {
+                    window.storeApp.atmosphere.pause();
+                }
+            }
+        } else if (window.storeApp && window.storeApp.atmosphere) {
+            const ytPlaying = window.storeApp.atmosphere.toggle();
+            actualizarEstadoVisual(ytPlaying);
+        }
+    };
+
+    // Arrancar música al primer toque en cualquier parte (solo una vez)
+    function primerToque(e) {
+        if (playBtn.contains(e.target) || (dock && dock.contains(e.target))) return;
+
+        if (audio && audio.src && !audio.src.endsWith('/') && audio.paused) {
+            audio.play().then(() => {
+                actualizarEstadoVisual(true);
+            }).catch(() => {
+                if (window.storeApp && window.storeApp.atmosphere) {
+                    window.storeApp.atmosphere.play();
+                    actualizarEstadoVisual(true);
+                }
+            });
+        } else if (window.storeApp && window.storeApp.atmosphere) {
+            window.storeApp.atmosphere.play();
+            actualizarEstadoVisual(true);
+        }
     }
 
-    if (window.lucide) lucide.createIcons();
-}
+    document.addEventListener('click', primerToque, { once: true });
+    document.addEventListener('touchstart', primerToque, { once: true });
 
-window.togglePlayMusic = togglePlayMusic;
-window.updateMusicVisuals = updateMusicVisuals;
+    window.actualizarEstadoVisual = actualizarEstadoVisual;
+    window.updateMusicVisuals = actualizarEstadoVisual;
+});
