@@ -517,30 +517,20 @@
         </div>
     </div>
 
-            <!-- Dock Flotante de Música: The Weeknd - Earned It -->
-    <div class="music-dock music-widget glass-panel" id="musicDock" aria-label="Reproductor The Weeknd - Earned It" style="display: flex; align-items: center; gap: 10px;">
-        <!-- Barras ecualizadoras -->
-        <div class="music-dock-bars eq-bars" id="eqBars">
-            <span class="music-bar"></span>
-            <span class="music-bar"></span>
-            <span class="music-bar"></span>
-            <span class="music-bar"></span>
+                <!-- Reproductor Superior de Música: The Weeknd - Earned It -->
+    <div class="music-widget glass-panel" id="musicDock" style="position: fixed; top: 90px; left: 16px; bottom: auto; z-index: 9990; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 50px;">
+        <div class="eq-bars music-dock-bars" id="eqBars">
+            <span class="music-bar"></span><span class="music-bar"></span><span class="music-bar"></span><span class="music-bar"></span>
         </div>
-
-        <!-- Info de la pista -->
-        <div class="music-dock-info track-info">
-            <span class="music-dock-tag track-artist" style="font-size: 9px; letter-spacing: 1.5px; color: #ef4444; display: block;">THE WEEKND</span>
-            <span class="music-dock-title track-title" style="font-size: 12px; color: #fff;">Earned It (50 Sombras)</span>
+        <div class="track-info music-dock-info">
+            <span style="font-size: 8px; letter-spacing: 1px; color: #ef4444; display: block; font-weight: 600;">THE WEEKND</span>
+            <span style="font-size: 11px; color: #fff; font-weight: 500;">Earned It</span>
         </div>
-
-        <!-- Botón Play / Pausa -->
-        <button id="playPauseBtn" onclick="togglePlayMusic()" title="Play / Pausa" style="background: rgba(185, 28, 28, 0.25); border: 1px solid rgba(239, 68, 68, 0.5); color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
-            <i id="playPauseIcon" data-lucide="play" style="width: 14px; height: 14px;"></i>
+        <button id="playPauseBtn" onclick="togglePlayMusic()" title="Play / Pausa" style="background: rgba(185, 28, 28, 0.35); border: 1px solid rgba(239, 68, 68, 0.5); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
+            <i id="playPauseIcon" data-lucide="play" style="width: 12px; height: 12px;"></i>
         </button>
-
-        <!-- Botón Silenciar / Volumen -->
-        <button id="muteToggleBtn" onclick="toggleMuteMusic()" title="Silenciar / Activar sonido" style="background: transparent; border: none; color: #fca5a5; cursor: pointer; display: flex; align-items: center; padding: 4px; transition: all 0.3s ease;">
-            <i id="volumeIcon" data-lucide="volume-2" style="width: 16px; height: 16px;"></i>
+        <button id="muteToggleBtn" onclick="toggleMuteMusic()" title="Silenciar / Activar sonido" style="background: transparent; border: none; color: #fca5a5; cursor: pointer; display: flex; align-items: center; padding: 2px; transition: all 0.3s ease;">
+            <i id="volumeIcon" data-lucide="volume-2" style="width: 14px; height: 14px;"></i>
         </button>
     </div>
 
@@ -563,112 +553,14 @@
             }
         });
     </script>
-    <!-- Botón Flotante del Chatbot Concierge VIP -->
-    <button id="chat-toggle" onclick="toggleChat()" style="position: fixed; bottom: 72px; right: 24px; z-index: 9999; background: linear-gradient(135deg, #8b0000, #4a0000); color: #fff; border: 1px solid rgba(255, 77, 77, 0.4); border-radius: 50px; padding: 12px 20px; font-family: inherit; font-size: 13px; letter-spacing: 1px; cursor: pointer; box-shadow: 0 8px 25px rgba(139, 0, 0, 0.5); display: flex; align-items: center; gap: 8px; backdrop-filter: blur(10px);">
-      <span style="width: 8px; height: 8px; background: #25D366; border-radius: 50%; display: inline-block;"></span>
-      CONCIERGE VIP
-    </button>
-
-    <!-- Ventana Flotante Glassmorphism del Chatbot -->
-    <div id="chat-box" style="display: none; position: fixed; bottom: 128px; right: 24px; width: 340px; max-width: 90vw; z-index: 9999; background: rgba(15, 15, 18, 0.92); backdrop-filter: blur(16px); border: 1px solid rgba(220, 38, 38, 0.35); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85); color: #f3f4f6; font-family: inherit;">
-      
-      <!-- Cabecera -->
-      <div style="background: linear-gradient(90deg, #2b0505, #141417); padding: 14px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <div style="font-size: 13px; font-weight: 700; letter-spacing: 1.5px; color: #fff;">SÉDUCTION CONCIERGE</div>
-          <div style="font-size: 11px; color: #9ca3af;">Asesoría discreta en línea</div>
-        </div>
-        <button onclick="toggleChat()" style="background: none; border: none; color: #9ca3af; font-size: 18px; cursor: pointer;">✕</button>
-      </div>
-
-      <!-- Historial de Mensajes -->
-      <div id="chat-messages" style="height: 260px; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 1.4;">
-        <div style="background: rgba(255, 255, 255, 0.06); padding: 10px 12px; border-radius: 12px 12px 12px 2px; border-left: 2px solid #b91c1c;">
-          Bienvenida a <strong>Séduction</strong>. Estoy aquí para asesorarte con total discreción. ¿Qué deseas consultar?
-        </div>
-      </div>
-
-      <!-- Botones de Respuesta Rápida -->
-      <div style="padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255, 255, 255, 0.06); background: rgba(0,0,0,0.3);">
-        <button onclick="askBot('tallas')" style="background: rgba(185, 28, 28, 0.2); border: 1px solid rgba(185, 28, 28, 0.5); color: #fca5a5; padding: 5px 10px; border-radius: 20px; font-size: 11px; cursor: pointer;">📏 Guía de Tallas</button>
-        <button onclick="askBot('envios')" style="background: rgba(185, 28, 28, 0.2); border: 1px solid rgba(185, 28, 28, 0.5); color: #fca5a5; padding: 5px 10px; border-radius: 20px; font-size: 11px; cursor: pointer;">📍 Entregas y Envíos</button>
-        <button onclick="askBot('discrecion')" style="background: rgba(185, 28, 28, 0.2); border: 1px solid rgba(185, 28, 28, 0.5); color: #fca5a5; padding: 5px 10px; border-radius: 20px; font-size: 11px; cursor: pointer;">🖤 Empaque Discreto</button>
-      </div>
-
-      <!-- Input de Texto -->
-      <form onsubmit="handleUserMessage(event)" style="display: flex; border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 8px;">
-        <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." style="flex: 1; background: transparent; border: none; color: #fff; font-size: 13px; padding: 6px 8px; outline: none;">
-        <button type="submit" style="background: #991b1b; color: #fff; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer;">Enviar</button>
-      </form>
-    </div>
-
-    <!-- Script del Chatbot VIP -->
-    <script>
-      const WHATSAPP_NUMBER = "593985880940"; // Número oficial de la tienda
-
-      function toggleChat() {
-        const box = document.getElementById("chat-box");
-        box.style.display = box.style.display === "none" ? "block" : "none";
-      }
-
-      function appendMessage(text, isUser = false) {
-        const container = document.getElementById("chat-messages");
-        const msg = document.createElement("div");
-        msg.style.padding = "10px 12px";
-        msg.style.maxWidth = "85%";
-        if (isUser) {
-          msg.style.alignSelf = "flex-end";
-          msg.style.background = "#7f1d1d";
-          msg.style.color = "#fff";
-          msg.style.borderRadius = "12px 12px 2px 12px";
-        } else {
-          msg.style.alignSelf = "flex-start";
-          msg.style.background = "rgba(255, 255, 255, 0.06)";
-          msg.style.borderLeft = "2px solid #b91c1c";
-          msg.style.borderRadius = "12px 12px 12px 2px";
-        }
-        msg.innerHTML = text;
-        container.appendChild(msg);
-        container.scrollTop = container.scrollHeight;
-      }
-
-      function getBotReply(query) {
-        const q = query.toLowerCase();
-        if (q.includes("talla") || q.includes("medida") || q.includes("s") || q.includes("m") || q.includes("l")) {
-          return "Manejamos tallas <strong>S, M y L</strong> con elásticos y tiras regulables:<br>• <strong>S:</strong> Busto 32-34 / Pantalón 6-8<br>• <strong>M:</strong> Busto 34-36 / Pantalón 8-10<br>• <strong>L:</strong> Busto 36-38 / Pantalón 10-12<br>Si dudas entre dos, elige la mayor para mayor comodidad.";
-        }
-        if (q.includes("envio") || q.includes("entrega") || q.includes("quito") || q.includes("servientrega") || q.includes("donde")) {
-          return "En <strong>Quito</strong> entregamos sin costo (previa cita) en:<br>• Nueva Aurora<br>• Parada El Recreo<br>• Parada Universidades (Ecovía)<br><br>A <strong>otras ciudades</strong> enviamos por <strong>Servientrega</strong> (costo adicional según destino, entrega en 24-48h).";
-        }
-        if (q.includes("discre") || q.includes("empaque") || q.includes("funda") || q.includes("caja") || q.includes("confidencial")) {
-          return "Garantizamos <strong>100% discreción</strong>: tu pedido viaja sellado en <strong>fundas negras totalmente opacas</strong>, sin logotipos ni textos que indiquen el contenido.";
-        }
-        if (q.includes("precio") || q.includes("pago") || q.includes("transferencia") || q.includes("comprar")) {
-          return "Nuestros conjuntos oscilan entre <strong>$20 y $24</strong>. Aceptamos transferencia bancaria (Pichincha/Produbanco) y efectivo en entregas personales en Quito.";
-        }
-        return `Para atención personalizada o confirmar disponibilidad inmediata, escríbenos directo a nuestro canal privado:<br><br><a href="https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Séduction,%20quisiera%20asesoría%20sobre%20un%20conjunto" target="_blank" style="display:inline-block; background:#16a34a; color:#fff; padding:6px 12px; border-radius:6px; text-decoration:none; font-weight:bold;">Abrir WhatsApp VIP</a>`;
-      }
-
-      function askBot(topic) {
-        const labels = {
-          tallas: "¿Cómo funcionan las tallas?",
-          envios: "¿Cómo son las entregas y envíos?",
-          discrecion: "¿El empaque es discreto?"
-        };
-        appendMessage(labels[topic], true);
-        setTimeout(() => appendMessage(getBotReply(topic), false), 350);
-      }
-
-      function handleUserMessage(e) {
-        e.preventDefault();
-        const input = document.getElementById("chat-input");
-        const text = input.value.trim();
-        if (!text) return;
-        appendMessage(text, true);
-        input.value = "";
-        setTimeout(() => appendMessage(getBotReply(text), false), 400);
-      }
-    </script>
+        <!-- Botón Flotante Directo a WhatsApp VIP -->
+    <a href="https://wa.me/593985880940?text=Hola%20S%C3%A9duction,%20quisiera%20asesor%C3%ADa%20discreta%20sobre%20un%20conjunto" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       style="position: fixed; bottom: 72px; right: 20px; z-index: 9999; background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50px; padding: 12px 18px; font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-decoration: none; box-shadow: 0 8px 25px rgba(22, 163, 74, 0.45); display: flex; align-items: center; gap: 8px; backdrop-filter: blur(10px);">
+      <span style="width: 8px; height: 8px; background: #fff; border-radius: 50%; display: inline-block;"></span>
+      WHATSAPP VIP
+    </a>
 
 </body>
 

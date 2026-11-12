@@ -2435,11 +2435,12 @@ button:hover,
 /* ==========================================================================
    REPRODUCTOR FLOTANTE DARK LOUNGE & SOUNDTRACK 50 SOMBRAS
    ========================================================================== */
-.music-dock {
+.music-dock, .music-widget {
     position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-    z-index: 99;
+    top: 90px;
+    left: 16px;
+    bottom: auto;
+    z-index: 9990;
     display: flex;
     align-items: center;
     gap: 0.85rem;
@@ -2698,10 +2699,11 @@ button:hover,
 }
 
 @media (max-width: 640px) {
-    .music-dock {
-        bottom: 1rem;
-        left: 1rem;
-        right: 1rem;
+    .music-dock, .music-widget {
+        top: 80px;
+        left: 12px;
+        right: auto;
+        bottom: auto;
         justify-content: space-between;
         padding: 0.5rem 0.8rem;
     }
