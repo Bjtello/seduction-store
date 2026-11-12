@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SÉDUCTION | Boutique de Lencería Exclusiva & Sensual</title>
+    <meta name="description"
+        content="SÉDUCTION - Lencería de lujo y prendas íntimas inspiradas en la elegancia nocturna, misterio y sensualidad. Envíos 100% discretos.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+
+    <!-- Ambient Lighting & Glow Orbs -->
+    <div class="ambient-glow orb-1"></div>
+    <div class="ambient-glow orb-2"></div>
+    <div class="ambient-glow orb-3"></div>
+
+    <!-- Header Flotante con Glassmorphism -->
+    <header class="glass-header" id="mainHeader">
+        <div class="header-container">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <a href="#" class="brand-logo">
+                <span class="logo-sub">HAUTE LINGERIE</span>
+                <span class="logo-main">SÉDUCTION</span>
+                <span class="logo-accent">PARIS &bull; NOIR</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#hero" class="nav-link active">Inicio</a>
+                <a href="#coleccion" class="nav-link">Colección</a>
+                <a href="#experiencia" class="nav-link">El Secreto</a>
+                <a href="#discrecion" class="nav-link">Discreción</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="glass-btn-icon" id="audioToggleBtn" title="Atmósfera Sonora Nocturna"
+                    aria-label="Música de ambiente">
+                    <i data-lucide="volume-x"></i>
+                </button>
+                <button class="cart-trigger-btn glass-btn-icon" id="cartTriggerBtn" aria-label="Ver Carrito">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-tagline glass-pill">
+                <span class="pulse-dot"></span>
+                <span>COLECCIÓN PRIVÉE &bull; OTOÑO / NOCHE</span>
+            </div>
+
+            <h1 class="hero-title">
+                Descubre tu lado <br>
+                <span class="text-crimson-gradient">más audaz</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Donde la seda y el encaje se funden con el misterio. Diseños que despiertan el deseo, hechos para
+                celebrar el poder absoluto de tu sensualidad.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="#coleccion" class="btn-crimson btn-glow">
+                    <span>Explorar Colección</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+                <a href="#discrecion" class="btn-glass">
+                    <i data-lucide="shield-check"></i>
+                    <span>Compra 100% Discreta</span>
+                </a>
+            </div>
+
+            <div class="hero-features">
+                <div class="feature-item">
+                    <i data-lucide="sparkles"></i>
+                    <span>Encaje Francés & Raso</span>
+                </div>
+                <div class="feature-separator">•</div>
+                <div class="feature-item">
+                    <i data-lucide="package"></i>
+                    <span>Empaque Confidencial</span>
+                </div>
+                <div class="feature-separator">•</div>
+                <div class="feature-item">
+                    <i data-lucide="truck"></i>
+                    <span>Envíos Seguros Express</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-down-hint">
+            <a href="#coleccion" aria-label="Desplazar a la colección">
+                <i data-lucide="chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Experience / Cincuenta Sombras Banner -->
+    <section class="experience-strip" id="experiencia">
+        <div class="container">
+            <div class="strip-glass-card">
+                <div class="strip-quote">
+                    <span class="quote-mark">“</span>
+                    <p>La verdadera elegancia radica en lo que se oculta bajo las sombras de la noche.</p>
+                    <span class="quote-author">— SÉDUCTION ATELIER</span>
+                </div>
+            </div>
+
+            <!-- Showcase Editorial Tres Modelos Cincuenta Sombras -->
+            <div class="editorial-trio-card glass-panel">
+                <div class="editorial-trio-img-wrap">
+                    <img src="{{ url_for('static', filename='img/hero-three-models-cinematic.jpg') }}" alt="Editorial Séduction - Tres Modelos"
+                        class="editorial-trio-img">
+                    <div class="editorial-trio-overlay">
+                        <div class="editorial-trio-badge">
+                            <span class="pulse-dot"></span>
+                            <span>SESIÓN EDITORIAL EXCLUSIVA</span>
+                        </div>
+                        <h3 class="editorial-trio-title">El Trío de la Seducción</h3>
+                        <p class="editorial-trio-desc">
+                            Tres siluetas, tres declaraciones de audacia en satén noir, encaje francés y arneses
+                            carmesí. Captura cinematográfica en alcoba de lujo.
+                        </p>
+                        <a href="#coleccion" class="btn-crimson btn-glow" style="margin-top: 0.8rem;">
+                            <span>Ver las 6 Piezas en el Catálogo</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section class="catalog-section" id="coleccion">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-subtitle">PIEZAS EXCLUSIVAS</span>
+                <h2 class="section-title">Nuestra Colección Prohibida</h2>
+                <div class="crimson-divider"></div>
+                <p class="section-desc">Selecciona tu atmósfera. Diseños concebidos para envolver tu figura con la
+                    sofisticación del satén, arneses y cuero vegano.</p>
+            </div>
+
+            <!-- Filtros de Catálogo Estilizados -->
+            <div class="filters-container">
+                <div class="filters-glass-bar">
+                    <button class="filter-btn active" data-filter="all">
+                        <i data-lucide="grid"></i> Todo
+                    </button>
+                    <button class="filter-btn" data-filter="edicion-roja">
+                        <span class="dot-red"></span> Edición Roja
+                    </button>
+                    <button class="filter-btn" data-filter="negro-sensual">
+                        <span class="dot-black"></span> Negro Sensual
+                    </button>
+                    <button class="filter-btn" data-filter="bodys-arneses">
+                        <i data-lucide="flame"></i> Bodys & Arneses
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banner Exclusivo de Categoría (Dinámico con Glassmorphism) -->
+            <div class="category-banner-container" id="categoryBannerContainer">
+                <!-- Se actualiza con app.js según el filtro -->
+            </div>
+
+            <!-- Grid de Productos (Tarjetas Flotantes Glassmorphism) -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Inyectado dinámicamente mediante app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Preguntas Frecuentes y Privacidad -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-subtitle">DUDAS FRECUENTES</span>
+                <h2 class="section-title">Confidencialidad & Compras</h2>
+                <div class="crimson-divider"></div>
+                <p class="section-desc">Respuestas transparentes sobre privacidad, embalaje discreto y tiempos de
+                    despacho.</p>
+            </div>
+
+            <div class="faq-accordion-wrap">
+                <div class="faq-item glass-panel">
+                    <button class="faq-question" onclick="app.toggleFaq(this)">
+                        <span>¿Cómo garantizan que el paquete sea 100% confidencial?</span>
+                        <i data-lucide="chevron-down" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nuestros paquetes viajan en cajas lisas de cartón rígido negro mate o kraft neutro, selladas
+                            con precinto de seguridad opaco sin membretes. En ninguna etiqueta exterior se menciona la
+                            palabra "lencería", "sensual" ni la marca "Séduction", garantizando que nadie sabrá lo que
+                            hay dentro.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-panel">
+                    <button class="faq-question" onclick="app.toggleFaq(this)">
+                        <span>¿Cómo elijo mi talla exacta si estoy entre dos medidas?</span>
+                        <i data-lucide="chevron-down" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nuestras piezas cuentan con elásticos graduables y corpiños de encaje elastizado con
+                            tolerancia adaptable. Si tienes busto prominente o dudas específicas, puedes hacer clic en
+                            nuestra <a href="javascript:void(0)" onclick="app.openSizeGuide()"
+                                style="color: var(--crimson-light); text-decoration: underline;">Guía Sensual de
+                                Tallas</a> o pulsar el botón de Asesoría VIP para consultar a una especialista en
+                            privado.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-panel">
+                    <button class="faq-question" onclick="app.toggleFaq(this)">
+                        <span>¿Cuáles son las formas de pago aceptadas?</span>
+                        <i data-lucide="chevron-down" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Aceptamos transferencias directas a través de los principales bancos, pagos instantáneos por
+                            Deuna, y tarjetas de crédito o débito a través de enlace seguro con cifrado bancario de 256
+                            bits.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-panel">
+                    <button class="faq-question" onclick="app.toggleFaq(this)">
+                        <span>¿En cuánto tiempo recibo mi pedido?</span>
+                        <i data-lucide="chevron-down" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Despachamos de forma inmediata. Las entregas en ciudades principales toman de 24 a 48 horas
+                            laborables mediante mensajería privada con código de seguimiento confidencial enviado a tu
+                            WhatsApp.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Discreción y Confianza -->
+    <section class="discretion-section" id="discrecion">
+        <div class="container">
+            <div class="discretion-card glass-panel">
+                <div class="discretion-badge">
+                    <i data-lucide="lock"></i>
+                    <span>PRIVACIDAD TOTAL GARANTIZADA</span>
+                </div>
+
+                <h2 class="discretion-title">Envíos 100% Discretos y Empaque Confidencial</h2>
+
+                <p class="discretion-text">
+                    Sabemos que la intimidad es tu tesoro más preciado. Todos nuestros pedidos se preparan en cajas
+                    neutras de lujo, selladas herméticamente, sin logotipos, marcas o descripciones que revelen el
+                    contenido exterior.
+                </p>
+
+                <div class="discretion-grid">
+                    <div class="discretion-item">
+                        <div class="icon-circle">
+                            <i data-lucide="box"></i>
+                        </div>
+                        <h3>Empaque Anónimo</h3>
+                        <p>Empaque negro mate sin mención de lencería ni marcas exteriores.</p>
+                    </div>
+
+                    <div class="discretion-item">
+                        <div class="icon-circle">
+                            <i data-lucide="credit-card"></i>
+                        </div>
+                        <h3>Facturación Cifrada</h3>
+                        <p>En tu extracto bancario o recibo aparecerá únicamente una razón social neutra y genérica.</p>
+                    </div>
+
+                    <div class="discretion-item">
+                        <div class="icon-circle">
+                            <i data-lucide="message-square"></i>
+                        </div>
+                        <h3>Atención por WhatsApp</h3>
+                        <p>Asesoría personalizada, confirmación directa y seguimiento privado con total reserva.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer de Lujo -->
+    <footer class="glass-footer">
+        <div class="container footer-content">
+            <div class="footer-col brand-col">
+                <span class="logo-main">SÉDUCTION</span>
+                <p>La casa de lencería de autor que rinde homenaje al misterio, la sensualidad desenfadada y la
+                    sofisticación femenina.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="social-icon" aria-label="TikTok"><i data-lucide="music-2"></i></a>
+                    <a href="#" class="social-icon" aria-label="Pinterest"><i data-lucide="camera"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Categorías</h4>
+                <ul>
+                    <li><a href="#coleccion" onclick="app.setFilter('edicion-roja')">Edición Roja Carmesí</a></li>
+                    <li><a href="#coleccion" onclick="app.setFilter('negro-sensual')">Negro Sensual Noir</a></li>
+                    <li><a href="#coleccion" onclick="app.setFilter('bodys-arneses')">Bodys & Arneses</a></li>
+                    <li><a href="#coleccion" onclick="app.setFilter('all')">Ver Todo el Catálogo</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Atención Privada</h4>
+                <ul>
+                    <li><a href="#discrecion">Garantía de Discreción</a></li>
+                    <li><a href="javascript:void(0)" onclick="app.openCart()">Mi Carrito de Compras</a></li>
+                    <li><a href="https://wa.me/593999999999?text=Hola%20Séduction,%20deseo%20asesoría%20personalizada"
+                            target="_blank">Chat de Asesoría VIP</a></li>
+                    <li><a href="#hero">Términos de Envío Confidencial</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Boutique VIP</h4>
+                <p class="vip-sub">Recibe invitaciones a lanzamientos secretos y ediciones limitadas.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); app.handleNewsletter();">
+                    <input type="email" placeholder="Tu correo privado..." required id="newsletterEmail">
+                    <button type="submit" class="btn-crimson-sm" aria-label="Suscribirse">
+                        <i data-lucide="send"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container bottom-flex">
+                <p>&copy; 2026 SÉDUCTION BOUTIQUE. Todos los derechos reservados. Elegancia y seducción.</p>
+                <div class="security-pills">
+                    <span><i data-lucide="shield"></i> SSL 256-Bit Seguro</span>
+                    <span><i data-lucide="eye-off"></i> 100% Confidencial</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carrito Flotante (Drawer Lateral con Glassmorphism) -->
+    <div class="cart-drawer-overlay" id="cartOverlay"></div>
+
+    <aside class="cart-drawer glass-drawer" id="cartDrawer" aria-hidden="true">
+        <div class="cart-header">
+            <div class="cart-title-wrap">
+                <i data-lucide="shopping-bag" class="cart-icon-header"></i>
+                <div>
+                    <h3>Tu Selección Íntima</h3>
+                    <span class="cart-items-subtitle" id="cartItemsSubtitle">0 prendas seleccionadas</span>
+                </div>
+            </div>
+            <button class="cart-close-btn" id="cartCloseBtn" aria-label="Cerrar Carrito">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <div class="cart-body" id="cartBody">
+            <!-- Lista de items o estado vacío -->
+        </div>
+
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span class="summary-val" id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-line discreet-line">
+                    <span><i data-lucide="package"></i> Empaque Discreto:</span>
+                    <span class="summary-free">GRATIS</span>
+                </div>
+                <div class="summary-line discount-line" id="discountLine"
+                    style="display: none; color: var(--crimson-light);">
+                    <span><i data-lucide="sparkles"></i> Descuento VIP (<span id="discountPercent">15%</span>):</span>
+                    <span class="summary-val" id="discountVal">-$0.00</span>
+                </div>
+                <div class="summary-total-line">
+                    <span>Total Estimado:</span>
+                    <span class="total-val" id="cartTotal">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Campo opcional de notas, ciudad y cupón privado -->
+            <div class="cart-inputs">
+                <label for="orderCustomerName" class="cart-label">Tu Nombre o Alias:</label>
+                <input type="text" id="orderCustomerName" placeholder="Ej. Valentina R." class="glass-input">
+
+                <label for="orderCity" class="cart-label">Ciudad / Destino:</label>
+                <input type="text" id="orderCity" placeholder="Ej. Quito / Guayaquil / Envío a Domicilio"
+                    class="glass-input">
+
+                <label for="promoCodeInput" class="cart-label">Código Privado / Cupón VIP:</label>
+                <div class="promo-box">
+                    <input type="text" id="promoCodeInput" placeholder="Prueba: NOIR15" class="glass-input promo-input">
+                    <button type="button" class="btn-glass btn-promo-apply" onclick="app.applyPromoCode()">
+                        Aplicar
+                    </button>
+                </div>
+                <div class="promo-badge-info" id="promoBadgeInfo"></div>
+            </div>
+
+            <!-- Botón de Pedido por WhatsApp -->
+            <button class="btn-whatsapp-order" id="whatsappOrderBtn">
+                <i data-lucide="message-circle"></i>
+                <div class="btn-wa-text">
+                    <span class="wa-main">Enviar Pedido por WhatsApp</span>
+                    <span class="wa-sub">Respuesta inmediata & trato confidencial</span>
+                </div>
+            </button>
+
+            <button class="btn-clear-cart" id="clearCartBtn">
+                <i data-lucide="trash-2"></i> Vaciar Carrito
+            </button>
+        </div>
+    </aside>
+
+    <!-- Floating Concierge WhatsApp Button -->
+    <a href="https://wa.me/593987283265?text=Hola%20S%C3%A9duction%20Boutique,%20deseo%20asesor%C3%ADa%20privada%20y%20confidencial."
+        target="_blank" class="floating-concierge-btn glass-pill" id="vipConciergeBtn" title="Asesoría VIP Privada">
+        <span class="concierge-pulse"></span>
+        <i data-lucide="message-circle"></i>
+        <span class="concierge-text">Asesoría VIP</span>
+    </a>
+
+    <!-- Modal Guía de Tallas (Size Guide) -->
+    <div class="modal-overlay" id="sizeGuideOverlay"></div>
+    <div class="quick-view-modal glass-modal size-guide-modal" id="sizeGuideModal" aria-hidden="true">
+        <button class="modal-close-btn" id="sizeGuideCloseBtn" aria-label="Cerrar">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="size-guide-content">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <span class="section-subtitle">MEDIDAS & CALCE</span>
+                <h3 class="section-title" style="font-size: 1.8rem;">Guía Sensual de Tallas</h3>
+                <div class="crimson-divider"></div>
+                <p style="color: var(--text-silver); font-size: 0.9rem;">
+                    Nuestras piezas de alta corsetería y encaje elástico están diseñadas para adaptarse suavemente al
+                    contorno de tu cuerpo.
+                </p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="size-table">
+                    <thead>
+                        <tr>
+                            <th>Talla Boutique</th>
+                            <th>Busto (cm)</th>
+                            <th>Cintura (cm)</th>
+                            <th>Cadera (cm)</th>
+                            <th>Copa Sujetador</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="highlight-size">S / M</strong></td>
+                            <td>84 - 92 cm</td>
+                            <td>62 - 72 cm</td>
+                            <td>88 - 98 cm</td>
+                            <td>32B, 34B, 32C</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="highlight-size">M / L</strong></td>
+                            <td>93 - 102 cm</td>
+                            <td>73 - 84 cm</td>
+                            <td>99 - 110 cm</td>
+                            <td>34C, 36B, 36C, 34D</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="size-tips-box">
+                <div class="tip-item">
+                    <i data-lucide="sparkles"></i>
+                    <div>
+                        <strong>Ajuste Regulable:</strong>
+                        <span>La mayoría de nuestros bodys y arneses cuentan con tirantes y hebillas regulables para un
+                            calce personalizado milimétrico.</span>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <i data-lucide="help-circle"></i>
+                    <div>
+                        <strong>¿Dudas con tu talla?</strong>
+                        <span>Escríbenos por WhatsApp con total discreción y una asesora experta te guiará en
+                            privado.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Vista Rápida (Quick View) -->
+    <div class="modal-overlay" id="quickViewOverlay"></div>
+    <div class="quick-view-modal glass-modal" id="quickViewModal" aria-hidden="true">
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Cerrar">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="modal-content" id="quickViewContent">
+            <!-- Generado dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Dock Flotante de Música Trip-Hop & Dark Lounge -->
+    <div class="music-dock" id="musicDock" aria-label="Reproductor Dark Lounge">
+        <div class="music-dock-bars" id="musicDockBars">
+            <span class="music-bar"></span>
+            <span class="music-bar"></span>
+            <span class="music-bar"></span>
+            <span class="music-bar"></span>
+        </div>
+        <div class="music-dock-info">
+            <span class="music-dock-tag">SOUNDTRACK 50 SOMBRAS</span>
+            <span class="music-dock-title">Trip-Hop & Dark Lounge</span>
+        </div>
+        <div class="music-dock-actions">
+            <button class="music-dock-btn" id="musicDockToggle" title="Activar / Pausar Atmósfera">
+                <i data-lucide="volume-2" id="musicDockPlayIcon"></i>
+            </button>
+            <button class="music-dock-btn" id="openPlaylistModalBtn" title="Ver Playlist Oficial">
+                <i data-lucide="disc"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Playlist Oficial 50 Sombras -->
+    <div class="modal-overlay" id="playlistOverlay"></div>
+    <div class="quick-view-modal glass-modal playlist-modal" id="playlistModal" aria-hidden="true">
+        <button class="modal-close-btn" id="playlistCloseBtn" aria-label="Cerrar">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="playlist-modal-content">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <span class="section-subtitle">ATMÓSFERA TRIP-HOP & DARK LOUNGE</span>
+                <h2 class="section-title" style="font-size: 2rem; margin-top: 0.5rem;">Soundtrack SÉDUCTION</h2>
+                <p class="playlist-intro">
+                    Inspirada en el sonido insignia de <em>Cincuenta Sombras</em>: pistas lentas, misteriosas y con bajos profundos diseñadas para encender la sensualidad.
+                </p>
+            </div>
+
+            <!-- Lista de Pistas Curadas -->
+            <div class="playlist-tracks-list">
+                <div class="track-row">
+                    <div class="track-index">01</div>
+                    <div class="track-meta">
+                        <div class="track-name">Go Fuck Yourself / I Feel Like I'm Drowning</div>
+                        <div class="track-artist">Two Feet</div>
+                    </div>
+                    <span class="track-pill">Bajo Pesado & Guitarras</span>
+                    <a href="https://open.spotify.com/search/Two%20Feet%20Go%20Fuck%20Yourself" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
+                        <i data-lucide="external-link"></i>
+                    </a>
+                </div>
+
+                <div class="track-row">
+                    <div class="track-index">02</div>
+                    <div class="track-meta">
+                        <div class="track-name">Earned It / Often (Slowed Instrumental)</div>
+                        <div class="track-artist">The Weeknd</div>
+                    </div>
+                    <span class="track-pill">Soundtrack 50 Sombras</span>
+                    <a href="https://open.spotify.com/search/The%20Weeknd%20Earned%20It" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
+                        <i data-lucide="external-link"></i>
+                    </a>
+                </div>
+
+                <div class="track-row">
+                    <div class="track-index">03</div>
+                    <div class="track-meta">
+                        <div class="track-name">Paradise Circus / Teardrop</div>
+                        <div class="track-artist">Massive Attack</div>
+                    </div>
+                    <span class="track-pill">El Clásico de Lencería</span>
+                    <a href="https://open.spotify.com/search/Massive%20Attack%20Paradise%20Circus" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
+                        <i data-lucide="external-link"></i>
+                    </a>
+                </div>
+
+                <div class="track-row">
+                    <div class="track-index">04</div>
+                    <div class="track-meta">
+                        <div class="track-name">Waiting Game / Goddess</div>
+                        <div class="track-artist">BANKS</div>
+                    </div>
+                    <span class="track-pill">Trip-Hop & Suspenso</span>
+                    <a href="https://open.spotify.com/search/BANKS%20Waiting%20Game" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
+                        <i data-lucide="external-link"></i>
+                    </a>
+                </div>
+
+                <div class="track-row">
+                    <div class="track-index">05</div>
+                    <div class="track-meta">
+                        <div class="track-name">Human</div>
+                        <div class="track-artist">Sevdaliza</div>
+                    </div>
+                    <span class="track-pill">Exótica, Profunda & Elegante</span>
+                    <a href="https://open.spotify.com/search/Sevdaliza%20Human" target="_blank" rel="noopener" class="track-action-btn" title="Escuchar en Spotify">
+                        <i data-lucide="external-link"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Reproductor Spotify Integrado para Ambientación Inmediata -->
+            <div class="spotify-embed-box">
+                <div class="spotify-box-header">
+                    <i data-lucide="disc" class="rotating-icon"></i>
+                    <span>Playlist Oficial de Fondo (Spotify Player)</span>
+                </div>
+                <iframe style="border-radius:12px; margin-top: 0.8rem;" 
+                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6tT9v2x4Q4p?utm_source=generator&theme=0" 
+                    width="100%" height="80" frameBorder="0" allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+                </iframe>
+            </div>
+
+            <!-- Control del Generador Trip-Hop Sub-Bass en Vivo -->
+            <div class="synth-lounge-box">
+                <div>
+                    <h4 style="font-size: 0.95rem; color: var(--text-pure-white); margin-bottom: 0.2rem;">Sintetizador Web Sub-Bass en Vivo</h4>
+                    <p style="font-size: 0.78rem; color: var(--text-silver); margin: 0;">Bajos profundos 68 BPM generados en tiempo real directo en tu navegador.</p>
+                </div>
+                <button class="cta-button" id="modalSynthToggleBtn" style="padding: 0.6rem 1.2rem; font-size: 0.82rem;">
+                    <i data-lucide="volume-2"></i> Alternar Audio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Inicializar iconos de Lucide
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>
