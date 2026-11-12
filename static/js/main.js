@@ -4,13 +4,14 @@
  */
 
 // Atmósfera Sonora: The Weeknd - Earned It (YouTube Background Audio a volumen medio-bajo)
+// Atmósfera Sonora: The Weeknd - Earned It
 class YouTubeAtmosphere {
     constructor(videoId = "waU75jdUnYw", volume = 22) {
         this.videoId = videoId;
         this.volume = volume; // Sonido medio bajo (22%)
         this.player = null;
-        this.isPlaying = false;
         this.isReady = false;
+        this.isPlaying = false;
         this.hasStarted = false;
         this.loadAPI();
     }
@@ -56,12 +57,13 @@ class YouTubeAtmosphere {
                             } catch (err) { }
                         },
                         onStateChange: (e) => {
+                            // 1 = PLAYING, 2 = PAUSED, 0 = ENDED
                             if (e.data === YT.PlayerState.PLAYING) {
                                 this.isPlaying = true;
-                                if (window.storeApp) window.updateMusicVisuals(true);
+                                window.updateMusicVisuals(true);
                             } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
                                 this.isPlaying = false;
-                                if (window.storeApp) window.updateMusicVisuals(false);
+                                window.updateMusicVisuals(false);
                             }
                         }
                     }
@@ -81,26 +83,30 @@ class YouTubeAtmosphere {
             };
         }
 
-        // Inicio suave al primer gesto del usuario (cumple directivas de reproducción de audio)
-        const startOnGesture = () => {
-            if (this.isReady && !this.isPlaying && !this.hasStarted) {
-                this.play();
-                this.hasStarted = true;
+        // Inicio suave al primer clic en cualquier parte de la tienda (excepto el propio reproductor)
+        const startOnFirstInteraction = (e) => {
+            if (e.target && e.target.closest && (e.target.closest('#musicDock') || e.target.closest('#playPauseBtn'))) {
+                return;
             }
-            document.removeEventListener("click", startOnGesture);
-            document.removeEventListener("touchstart", startOnGesture);
+            if (this.isReady && !this.isPlaying && !this.hasStarted) {
+                this.hasStarted = true;
+                this.play();
+            }
+            document.removeEventListener("click", startOnFirstInteraction);
+            document.removeEventListener("touchstart", startOnFirstInteraction);
         };
-        document.addEventListener("click", startOnGesture, { once: true });
-        document.addEventListener("touchstart", startOnGesture, { once: true });
+        document.addEventListener("click", startOnFirstInteraction, { once: true });
+        document.addEventListener("touchstart", startOnFirstInteraction, { once: true });
     }
 
     play() {
-        if (this.player && this.isReady) {
+        if (this.player && typeof this.player.playVideo === "function") {
             try {
                 this.player.setVolume(this.volume);
                 this.player.playVideo();
                 this.isPlaying = true;
                 this.hasStarted = true;
+                window.updateMusicVisuals(true);
             } catch (err) {
                 console.warn("YouTube play error", err);
             }
@@ -108,10 +114,11 @@ class YouTubeAtmosphere {
     }
 
     pause() {
-        if (this.player && this.isReady) {
+        if (this.player && typeof this.player.pauseVideo === "function") {
             try {
                 this.player.pauseVideo();
                 this.isPlaying = false;
+                window.updateMusicVisuals(false);
             } catch (err) {
                 console.warn("YouTube pause error", err);
             }
@@ -119,11 +126,14 @@ class YouTubeAtmosphere {
     }
 
     toggle() {
-        if (!this.player || !this.isReady) {
+        if (!this.player || typeof this.player.getPlayerState !== "function") {
             this.play();
             return true;
         }
-        if (this.isPlaying) {
+
+        const state = this.player.getPlayerState();
+        // 1 = PLAYING, 3 = BUFFERING
+        if (state === 1 || state === 3 || this.isPlaying) {
             this.pause();
             return false;
         } else {
@@ -976,15 +986,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ==========================================
-// Control de Música: Play/Pausa & Mute/Volumen
-// ==========================================
-let isMusicMuted = false;
 
+// ==========================================
+// Control de Música: Play / Pausa Único
+// ==========================================
 function togglePlayMusic() {
     if (window.storeApp && window.storeApp.atmosphere) {
-        const isNowPlaying = window.storeApp.atmosphere.toggle();
-        updateMusicVisuals(isNowPlaying);
+        window.storeApp.atmosphere.toggle();
         return;
     }
     const audioPlayer = document.getElementById("bgMusic");
@@ -1000,43 +1008,9 @@ function togglePlayMusic() {
     }
 }
 
-function toggleMuteMusic() {
-    const volIcon = document.getElementById("volumeIcon");
-    const audioPlayer = document.getElementById("bgMusic");
-    isMusicMuted = !isMusicMuted;
-
-    if (window.storeApp && window.storeApp.atmosphere && window.storeApp.atmosphere.player) {
-        try {
-            if (isMusicMuted) {
-                window.storeApp.atmosphere.player.mute();
-            } else {
-                window.storeApp.atmosphere.player.unMute();
-                window.storeApp.atmosphere.player.setVolume(22);
-            }
-        } catch (e) { }
-    }
-
-    if (audioPlayer) {
-        audioPlayer.muted = isMusicMuted;
-    }
-
-    if (volIcon) {
-        volIcon.setAttribute("data-lucide", isMusicMuted ? "volume-x" : "volume-2");
-    }
-
-    const headerAudioBtn = document.getElementById("audioToggleBtn");
-    if (headerAudioBtn) {
-        headerAudioBtn.innerHTML = isMusicMuted ? '<i data-lucide="volume-x"></i>' : '<i data-lucide="volume-2"></i>';
-        headerAudioBtn.style.color = isMusicMuted ? "" : "var(--crimson-light)";
-    }
-
-    if (window.lucide) lucide.createIcons();
-}
-
 function updateMusicVisuals(isPlaying) {
     const playIcon = document.getElementById("playPauseIcon");
     const dock = document.getElementById("musicDock");
-    const headerAudioBtn = document.getElementById("audioToggleBtn");
 
     if (dock) {
         if (isPlaying) {
@@ -1050,14 +1024,8 @@ function updateMusicVisuals(isPlaying) {
         playIcon.setAttribute("data-lucide", isPlaying ? "pause" : "play");
     }
 
-    if (headerAudioBtn) {
-        headerAudioBtn.innerHTML = isPlaying ? '<i data-lucide="volume-2"></i>' : '<i data-lucide="volume-x"></i>';
-        headerAudioBtn.style.color = isPlaying ? "var(--crimson-light)" : "";
-    }
-
     if (window.lucide) lucide.createIcons();
 }
 
 window.togglePlayMusic = togglePlayMusic;
-window.toggleMuteMusic = toggleMuteMusic;
 window.updateMusicVisuals = updateMusicVisuals;

@@ -50,10 +50,6 @@
             </nav>
 
             <div class="header-actions">
-                <button class="glass-btn-icon" id="audioToggleBtn" title="Atmósfera Sonora Nocturna"
-                    aria-label="Música de ambiente">
-                    <i data-lucide="volume-x"></i>
-                </button>
                 <button class="cart-trigger-btn glass-btn-icon" id="cartTriggerBtn" aria-label="Ver Carrito">
                     <i data-lucide="shopping-bag"></i>
                     <span class="cart-badge" id="cartCount">0</span>
@@ -529,10 +525,7 @@
         <button id="playPauseBtn" onclick="togglePlayMusic()" title="Play / Pausa" style="background: rgba(185, 28, 28, 0.35); border: 1px solid rgba(239, 68, 68, 0.5); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;">
             <i id="playPauseIcon" data-lucide="play" style="width: 12px; height: 12px;"></i>
         </button>
-        <button id="muteToggleBtn" onclick="toggleMuteMusic()" title="Silenciar / Activar sonido" style="background: transparent; border: none; color: #fca5a5; cursor: pointer; display: flex; align-items: center; padding: 2px; transition: all 0.3s ease;">
-            <i id="volumeIcon" data-lucide="volume-2" style="width: 14px; height: 14px;"></i>
-        </button>
-    </div>
+        </div>
 
     <!-- Etiqueta Audio HTML5 de respaldo -->
     <audio id="bgMusic" preload="auto" loop></audio>
