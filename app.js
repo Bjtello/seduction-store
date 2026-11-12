@@ -191,7 +191,7 @@ const PRODUCTS_DATA = [
         badge: "Bestseller",
         price: 22.00,
         oldPrice: 25.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/model-1-colegiala.jpg",
         flatlayImage: "assets/prod-1-colegiala.jpg",
         description: "Enterizo negro seductor estilo colegiala chic con cuello camisero blanco, corbata negra satinada, abertura provocativa bajo el busto y tirantes conectados a falda skater.",
@@ -206,7 +206,7 @@ const PRODUCTS_DATA = [
         badge: "Edición Especial",
         price: 22.00,
         oldPrice: 25.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/model-2-ribete-blanco.jpg",
         flatlayImage: "assets/prod-2-ribete-blanco.jpg",
         description: "Sostén de encaje negro transparente con delicado festón blanco y lazo central. Braguita de tiro alto con tiras cruzadas y ligueros en muslos con lazos blancos.",
@@ -221,7 +221,7 @@ const PRODUCTS_DATA = [
         badge: "Pieza Ícono",
         price: 22.00,
         oldPrice: 25.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/model-3-arnes-rojo.jpg",
         flatlayImage: "assets/prod-3-arnes-rojo.jpg",
         description: "Conjunto de encaje rojo carmesí con arneses de diseño geométrico. Sostén con aros y argollas O-rings metálicas con tiras que cruzan abdomen y cintura, más ligueros a los muslos.",
@@ -236,7 +236,7 @@ const PRODUCTS_DATA = [
         badge: "Alta Costura",
         price: 24.00,
         oldPrice: 27.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/model-4-choker.jpg",
         flatlayImage: "assets/prod-4-choker-noir.jpg",
         description: "Exclusivo conjunto negro con gargantilla choker floral de encaje conectada al sostén mediante una tira central. Panty a juego con liguero de encaje y tiras cruzadas en cadera.",
@@ -251,7 +251,7 @@ const PRODUCTS_DATA = [
         badge: "Esencial VIP",
         price: 20.00,
         oldPrice: 24.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/model-5-bralette.jpg",
         flatlayImage: "assets/prod-5-bralette-clean.jpg",
         description: "Bralette negro de encaje con escote en V profundo y banda elástica ancha. Braguita de encaje a juego con detalle de tiras dobles paralelas en la cadera.",
@@ -266,7 +266,7 @@ const PRODUCTS_DATA = [
         badge: "Bondage Chic",
         price: 22.00,
         oldPrice: 25.00,
-        sizes: ["S/M", "M/L"],
+        sizes: ["S", "M", "L"],
         image: "assets/prod-6-body-clean.jpg",
         flatlayImage: "assets/model-6-transparencias.jpg",
         description: "Body vanguardista estilo arnés con copas de malla transparente oscura. Diseño geométrico con cuello alto tipo choker, cintas por el torso y ligas en los muslos.",
@@ -289,7 +289,7 @@ class BoutiqueApp {
 
         // Inicializar tallas por defecto
         this.products.forEach(p => {
-            this.selectedSizes[p.id] = p.sizes[0] || "S/M";
+            this.selectedSizes[p.id] = p.sizes[0] || "S";
         });
 
         // Número de WhatsApp de la boutique (Ecuador: +593 o genérico configurable)

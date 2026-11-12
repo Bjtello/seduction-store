@@ -10,7 +10,7 @@ PRODUCTOS = [
         "nombre": "Body Colegiala Chic & Corbata",
         "categoria": "bodys",
         "precio": 22.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/colegiala.jpg",
         "etiqueta": "BESTSELLER"
     },
@@ -19,7 +19,7 @@ PRODUCTOS = [
         "nombre": "Conjunto Noir Ribete Blanco",
         "categoria": "negro",
         "precio": 22.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/noir-blanco.jpg",
         "etiqueta": "EDICIÓN ESPECIAL"
     },
@@ -28,7 +28,7 @@ PRODUCTOS = [
         "nombre": "Conjunto Rojo Carmesí Arneses",
         "categoria": "rojo",
         "precio": 22.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/rojo-arnes.jpg",
         "etiqueta": "PIEZA ÍCONO"
     },
@@ -37,7 +37,7 @@ PRODUCTOS = [
         "nombre": "Conjunto Gargantilla Choker Noir",
         "categoria": "negro",
         "precio": 24.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/choker-noir.jpg",
         "etiqueta": "ALTA COSTURA"
     },
@@ -46,7 +46,7 @@ PRODUCTOS = [
         "nombre": "Bralette Noir Clásico Escote V",
         "categoria": "negro",
         "precio": 20.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/bralette-clasico.jpg",
         "etiqueta": "ESENCIAL VIP"
     },
@@ -55,7 +55,7 @@ PRODUCTOS = [
         "nombre": "Body Arnés & Malla Transparente",
         "categoria": "bodys",
         "precio": 22.00,
-        "tallas": ["S/M", "M/L"],
+        "tallas": ["S", "M", "L"],
         "imagen": "img/body-malla.jpg",
         "etiqueta": "BONDAGE CHIC"
     }
