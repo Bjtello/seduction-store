@@ -144,7 +144,7 @@ class BoutiqueApp {
         });
 
         // Número de WhatsApp de la boutique (Ecuador: +593 o genérico configurable)
-        this.whatsappNumber = "593985880940";
+        this.whatsappNumber = "593987283265";
 
         this.initDOMElements();
         this.bindEvents();
